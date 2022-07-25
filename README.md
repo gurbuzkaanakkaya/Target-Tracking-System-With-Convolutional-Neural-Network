@@ -30,7 +30,7 @@ The masking process was used during the follow-up to frame a certain part of the
 
 - Ability to select seven different OpenCV tracking algorithms. 
 - Simultaneous tracking of the selected target on the "x" and "y" axis.
-- Analyzing the frames taken simultaneously with the tracking according to the trained data set.
+- Analyzing the frames taken simultaneously with the tracking according to the trained neural network.
 - Ability to see the accuracy rates of simultaneous frames received with tracking according to the trained neural network.
 - Mobile robot motor controls in accordance with the accuracy rate.
   
