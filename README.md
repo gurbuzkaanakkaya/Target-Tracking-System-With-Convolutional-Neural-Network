@@ -8,7 +8,7 @@ In this study, target tracking systems used in technologies that are at the fore
 ## Authors 
 
 - [@gurbuzkaanakkaya](https://www.github.com/gurbuzkaanakkaya) 
-- [@Huseyinburakasar](https://www.github.com/Huseyinburakasar)
+
   
 
   
