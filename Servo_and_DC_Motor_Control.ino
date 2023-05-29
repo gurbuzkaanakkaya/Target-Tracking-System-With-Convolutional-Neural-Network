@@ -10,7 +10,6 @@ int data[2];
 Servo myservo_x1; 
 Servo myservo_y1;
 
-
 void setup() {
   Serial.begin(9600);
   myservo_x1.attach(4);
@@ -23,10 +22,6 @@ void setup() {
   pinMode(MotorR1, OUTPUT);
   pinMode(MotorR2, OUTPUT);
   pinMode(MotorRE, OUTPUT);
-
-
-  
-
 }
 
 void loop() {      
@@ -42,21 +37,17 @@ void loop() {
      
   
      if (data[2]> 91) {  
-         sag();
-                                
+         sag();                           
   }
   
      else if (data[2]<= 89 ) {
         sol();
-        
         }
         
      else 
         sabit();
-
+ }
 }
-}
-
 
 void sag(){  // Robotun ileri yönde hareketi için fonksiyon tanımlıyoruz.
 
@@ -67,9 +58,8 @@ void sag(){  // Robotun ileri yönde hareketi için fonksiyon tanımlıyoruz.
   digitalWrite(MotorL1, LOW); // Sol motorun ileri hareketi aktif
   digitalWrite(MotorL2, LOW); // Sol motorun geri hareketi pasif
   analogWrite(MotorLE, 90); // Sol motorun hızı 150
-  
-  
 }
+
 void ileri(){  // Robotun ileri yönde hareketi için fonksiyon tanımlıyoruz.
 
   digitalWrite(MotorR1, LOW); // Sağ motorun ileri hareketi aktif
@@ -79,9 +69,8 @@ void ileri(){  // Robotun ileri yönde hareketi için fonksiyon tanımlıyoruz.
   digitalWrite(MotorL1, HIGH); // Sol motorun ileri hareketi aktif
   digitalWrite(MotorL2, LOW); // Sol motorun geri hareketi pasif
   analogWrite(MotorLE, 70); // Sol motorun hızı 150
-  
-  
 }
+
 void sabit(){  // Robotun ileri yönde hareketi için fonksiyon tanımlıyoruz.
 
   digitalWrite(MotorR1, LOW); // Sağ motorun ileri hareketi aktif
@@ -90,9 +79,7 @@ void sabit(){  // Robotun ileri yönde hareketi için fonksiyon tanımlıyoruz.
 
   digitalWrite(MotorL1, LOW); // Sol motorun ileri hareketi aktif
   digitalWrite(MotorL2, LOW); // Sol motorun geri hareketi pasif
-  analogWrite(MotorLE, 0); // Sol motorun hızı 150
-  
-  
+  analogWrite(MotorLE, 0); // Sol motorun hızı 150  
 }
 
 void sol(){ // Robotun geri yönde hareketi için fonksiyon tanımlıyoruz.
@@ -103,6 +90,5 @@ void sol(){ // Robotun geri yönde hareketi için fonksiyon tanımlıyoruz.
 
   digitalWrite(MotorL1, HIGH); // Sol motorun ileri hareketi pasif
   digitalWrite(MotorL2, LOW); // Sol motorun geri hareketi aktif
-  analogWrite(MotorLE, 40); // Sol motorun hızı 150
-  
+  analogWrite(MotorLE, 40); // Sol motorun hızı 150 
 }
