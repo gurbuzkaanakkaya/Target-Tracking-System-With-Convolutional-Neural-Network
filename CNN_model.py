@@ -1,18 +1,16 @@
 import cv2
 import os
+import pickle
 import numpy as np
+import seaborn as sns
 import matplotlib.pyplot as plt
 from sklearn.metrics import confusion_matrix
 from keras.models import Sequential
 from keras.layers import Dense, Dropout, Flatten
-from keras.layers import Conv2D, MaxPooling2D, BatchNormalization
+from keras.layers import Conv2D, MaxPooling2D
 from keras.utils import to_categorical
-import pickle
 from keras.preprocessing.image import ImageDataGenerator
-from sklearn.preprocessing import LabelEncoder
-from sklearn.preprocessing import OneHotEncoder
 from sklearn.model_selection import train_test_split
-import seaborn as sns
 
 path = "datacnn"
 myList = os.listdir(path)
