@@ -1,30 +1,9 @@
 import numpy as np
-from keras.models import model_from_json
-from keras.layers import Dense, Dropout, Flatten
-from keras.layers import Conv2D, MaxPooling2D, BatchNormalization
-from keras.preprocessing.image import ImageDataGenerator
-from sklearn.preprocessing import LabelEncoder
-from sklearn.preprocessing import OneHotEncoder
-from sklearn.model_selection import train_test_split
-from keras.models import Sequential
-from sklearn.metrics import confusion_matrix
-from keras.utils import to_categorical
-import seaborn as sns
-import glob
 import pickle
-import os
-import keyboard
-import uuid
 import cv2
 import time
-from PIL import Image
-from mss import mss
-import keyboard
 import serial
 import struct
-from collections import deque
-import matplotlib as plt
-
 import warnings
 
 warnings.filterwarnings("ignore")
