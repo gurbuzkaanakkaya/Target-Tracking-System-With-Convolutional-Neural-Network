@@ -8,7 +8,7 @@ import warnings
 
 warnings.filterwarnings("ignore")
 
-# %% Servo motor kontrolü için servoyu bağladığımız arduino ile programımız arasında seri iletişim başlatır
+# To control the servo motor, we establish serial communication between the Arduino, to which the servo is connected, and our program.
 seri = serial.Serial("COM3", 9600)
 time.sleep(2)
 
@@ -20,18 +20,17 @@ cnnc2 = [0]
 cnnc3 = [0]
 cnnc4 = [0]
 
-# %% Takip algoritmalarımızı 'Sözlük' formatında tanımladık ;
-# ## Sözlük
-# - bir çeşit karma tablo türüdür
-# - anahtar ve değer çiftlerinden oluşur, hemen hemen her variable türü olabilir ama genelde sayılar veya dizilerdir
-# - { "anahtar": değer }
+# We defined our tracking algorithms in the 'Dictionary' format.
+# Dictionary #
+# - It is a type of data structure that acts as a key-value store.
+# - It consists of key-value pairs, where the value can be of any variable type, but usually numbers or arrays.
+# - { "key": value }
 
-# Python programlama dilinde Switch-Case yapısı bulunmaz, algoritmalar arasında seçim yapabilmek için kendi Switch-Case
-# mantığımızı oluşturuyoruz, tek bir 'Sözlük' yapısı yeterliydi ancak programı son kullanıcı tarafından daha anlaşılır kılmak
-# için 2. bir Sözlük yapısı daha oluşturduk
+# Python programming language does not have a built-in Switch-Case structure. To make selections between algorithms,
+# we create our own logic similar to Switch-Case. Initially, a single 'Dictionary' structure was sufficient, but to make
+# the program more understandable by end-users, we created an additional Dictionary structure.
 
-
-# Sözlük 1
+# Dictionary 1
 OPENCV_OBJECT_TRACKERS = {"CSRT": cv2.legacy.TrackerCSRT_create,
                           "KCF": cv2.legacy.TrackerKCF_create,
                           "Boosting": cv2.legacy.TrackerBoosting_create,
@@ -40,7 +39,7 @@ OPENCV_OBJECT_TRACKERS = {"CSRT": cv2.legacy.TrackerCSRT_create,
                           "MedianFlow": cv2.legacy.TrackerMedianFlow_create,
                           "Mosse": cv2.legacy.TrackerMOSSE_create}
 
-# Sözlük 2
+# Dictionary 2
 TRACKERS_KEYS = {"1": "CSRT",
                  "2": "KCF",
                  "3": "Boosting",
@@ -84,7 +83,6 @@ def preProcess(imgcnn, masked_cnnc1, masked_cnnc2, masked_cnnc3, masked_cnnc4):
 
     return imgcnn
 
-
 def algoritma(TRACKERS_KEYS, OPENCV_OBJECT_TRACKERS):
     choice = input("Takip algoritmasını sec (1-7)   : ")
     keys = TRACKERS_KEYS.keys()
@@ -97,7 +95,6 @@ def algoritma(TRACKERS_KEYS, OPENCV_OBJECT_TRACKERS):
     else:
         print("! Gecersiz secim ! Varsayilan Takip Algoritmasi {}".format(tracker_name))
     print("Cikis icin 'q'")
-
 
 algoritma(TRACKERS_KEYS, OPENCV_OBJECT_TRACKERS)
 
@@ -131,7 +128,7 @@ def reel(classIndex, probVal):
         return classIndexr
 
 
-# %% Obje sınırlarını belirtmek / objeyi kutucuk içerisine almak için oluşturduğumuz fonksiyon
+# To specify the boundaries of an object or to enclose the object within a bounding box, we have created a function.
 def drawBox(img, bbox):
     x, y, w, h = int(bbox[0]), int(bbox[1]), int(bbox[2]), int(bbox[3])
     center_x = int(x + w / 2)
@@ -159,8 +156,8 @@ def corner_to_mask(bbox, cnnc1, cnnc2, cnnc3, cnnc4):
     return cnnc1, cnnc2, cnnc3, cnnc4
 
 
-# %% Servo motor kontrolü için oluşturduğumuz fonksiyon
-# Servo motorlarımıza gönderilecek olan komutlar
+# The function we created for controlling the servo motor.
+# The commands to be sent to our servo motors
 def servo(bbox, classIndexr):
     x, y, w, h = int(bbox[0]), int(bbox[1]), int(bbox[2]), int(bbox[3])
     center_x = int(x + w / 2)
@@ -221,9 +218,10 @@ def servo(bbox, classIndexr):
 
     zdeg = zlis[len(zlis) - 1]
 
-    # Seri iletişimde motora gönderilen PWM sinyali 0-255 arasında olduğundan 0 dan az 255 den fazla değeri dönderemeyiz
-    # Servo motorların dönüş açı sınırları 0-180 derece olduğundan 0 ve 180 derece sınırlarını da aşamazlar
-    # Bu nedenle oluşturduğumuz listelerdeki son konumlar 0 dan düşük 180 den fazla olmamalı :
+    # Since the PWM signal sent to the motor in serial communication is between 0 and 255, we cannot send values less than 0 or greater than 255.
+    # Since the servo motors have a rotation angle limit of 0-180 degrees, they cannot exceed the limits of 0 and 180 degrees.
+    # Therefore, the last positions in the lists we created should not be less than 0 or greater than 180.
+
     if xdeg >= 180:
         xlis.append(xlis[len(xlis) - 1] - 1)
         xlis.remove(xlis[0])
@@ -253,11 +251,10 @@ def servo(bbox, classIndexr):
     cv2.putText(img, "derece Y =" + str(ydeg), (250, 465), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
     cv2.putText(img, "derece Z =" + str(zdeg), (460, 465), cv2.FONT_HERSHEY_SIMPLEX, 0.7, (0, 0, 255), 2)
 
-    # Arduino ile çalışmak için aç/kapa #ri.write(struct.pack('>BB', xdeg,ydeg))
+    # To open/close with Arduino, use #ri.write(struct.pack('>BB', xdeg, ydeg))
     seri.write(struct.pack('>BBB', xdeg, ydeg, zdeg))
-    # Kameradan görüntü alma "success" değerini dönderdiği sürece ;
 
-
+# Capture video from the camera as long as it returns "success"
 while True:
     timer = cv2.getTickCount()
     success, img = cap.read()
