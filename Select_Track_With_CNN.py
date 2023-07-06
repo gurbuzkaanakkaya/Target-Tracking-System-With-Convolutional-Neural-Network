@@ -238,7 +238,7 @@ def servo(bbox, classIndexr):
         ylis.append(ylis[len(ylis) - 1] + 1)
         ylis.remove(ylis[0])
         print("y ekseni sınır acısı 0 derece")
-    if zdeg >= 92:
+    if zdeg >= 91:
         zlis.append(zlis[len(zlis) - 1] - 1)
         zlis.remove(zlis[0])
         print("z ekseni sınırı")
